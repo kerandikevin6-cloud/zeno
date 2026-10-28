@@ -4564,34 +4564,36 @@ html{scroll-snap-type:none}
 /* ---- top bar on inner pages: just the way back ---- */
 .topbar-title{display:none}
 
-/* ---- bottom bar: the chosen tab sits in a small pane of glass ----
-   A frosted capsule behind the icon and its name, with a bright top
-   edge. Nothing coloured: the pane, the solid icon and the heavier
-   label are what say "you are here". */
-@media (max-width:899px){
-  .tabbar{padding-left:6px;padding-right:6px}
-  .tabbar a{position:relative;isolation:isolate}
-  .tabbar a::before{
-    content:"";display:block!important;position:absolute;z-index:-1;
-    left:50%;top:6px;width:min(64px,92%);height:calc(var(--tabbar-h) - 12px);
-    transform:translateX(-50%) scale(.86);opacity:0;
-    border-radius:16px!important;
-    background:var(--glass-on);border:1px solid var(--glass-on-line);
-    backdrop-filter:blur(16px) saturate(1.6);-webkit-backdrop-filter:blur(16px) saturate(1.6);
-    transition:opacity .22s ease, transform .22s cubic-bezier(.3,.7,.2,1);
-  }
-  .tabbar a.active::before{
-    opacity:1;transform:translateX(-50%) scale(1);
-    background:var(--glass-on);border:1px solid var(--glass-on-line);
-    box-shadow:inset 0 1px 0 var(--glass-hi),0 4px 14px var(--glass-drop)!important;
-  }
-  .tabbar a{padding:0 2px 2px}
-  .tabbar .tb-lab{margin-top:1px}
-  :root[data-theme="light"] .tabbar a.active::before{background:linear-gradient(180deg,#FFFFFF,#F3F3F0)}
-}
-@media (prefers-reduced-motion:reduce){.tabbar a::before{transition:none}}
+/* ---- bottom bar: no pane behind the chosen tab; the solid icon and
+   the heavier label say "you are here" ---- */
+.tabbar a::before,.tabbar a.active::before{display:none!important}
 
 /* ---- the mark beside the name ---- */
 .wordmark{display:inline-flex;align-items:center;gap:7px}
 .wordmark .wm-mark{width:1.45em;height:1.45em;flex:none;display:block;color:var(--text)}
 .wordmark .wm-name{gap:0}
+
+/* ---- digits in colour ----
+   Green for the digit appearing most, red for the one appearing least,
+   the brand indigo on the live digit, and the hit or miss in green or
+   red as each tick lands. Every other digit stays neutral. */
+:root,:root[data-theme]{--d-hot:#16A34A;--d-cold:#DC2626;--d-live:#4F46E5}
+:root[data-theme="dark"]{--d-hot:#4ADE80;--d-cold:#F87171;--d-live:#8F86FF}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--d-hot:#4ADE80;--d-cold:#F87171;--d-live:#8F86FF}}
+.dcell.hot .digit,:root[data-theme="light"] .dcell.hot .digit{border-color:var(--d-hot);color:var(--d-hot);background:color-mix(in srgb,var(--d-hot) 9%,var(--surface))}
+.dcell.hot .dpct,:root[data-theme="light"] .dcell.hot .dpct{color:var(--d-hot);font-weight:600}
+.dcell.cold .digit,:root[data-theme="light"] .dcell.cold .digit{border-color:var(--d-cold);color:var(--d-cold);background:color-mix(in srgb,var(--d-cold) 9%,var(--surface))}
+.dcell.cold .dpct,:root[data-theme="light"] .dcell.cold .dpct{color:var(--d-cold);font-weight:600}
+.dcell.cur .digit,.dcell.cur.sel .digit,
+:root[data-theme="light"] .dcell.cur .digit,:root[data-theme="light"] .dcell.cur.sel .digit{border:1.5px solid var(--d-live);background:var(--d-live);color:#fff}
+.dcell.cur .dpct,:root[data-theme="light"] .dcell.cur .dpct{color:var(--d-live)}
+.dcell.cur::after,:root[data-theme="light"] .dcell.cur::after{border-bottom-color:var(--d-live)}
+.dcell.cur.hit .digit,.dcell.cur.sel.hit .digit,
+:root[data-theme="light"] .dcell.cur.hit .digit,:root[data-theme="light"] .dcell.cur.sel.hit .digit{background:var(--d-hot);border-color:var(--d-hot);color:#fff}
+.dcell.cur.hit .dpct,:root[data-theme="light"] .dcell.cur.hit .dpct{color:var(--d-hot)}
+.dcell.cur.hit::after,:root[data-theme="light"] .dcell.cur.hit::after{border-bottom-color:var(--d-hot)}
+.dcell.cur.miss .digit,.dcell.cur.sel.miss .digit,
+:root[data-theme="light"] .dcell.cur.miss .digit,:root[data-theme="light"] .dcell.cur.sel.miss .digit{background:var(--d-cold);border-color:var(--d-cold);color:#fff}
+.dcell.cur.miss .dpct,:root[data-theme="light"] .dcell.cur.miss .dpct{color:var(--d-cold)}
+.dcell.cur.miss::after,:root[data-theme="light"] .dcell.cur.miss::after{border-bottom-color:var(--d-cold)}
+:root[data-theme="dark"] .dcell.cur .digit,:root[data-theme="dark"] .dcell.cur.hit .digit,:root[data-theme="dark"] .dcell.cur.miss .digit{color:#111110}

@@ -1441,9 +1441,12 @@
              currency every later screen is priced in. */
           country: ((f.querySelector('#sCountry') || {}).value) || undefined
         });
+        /* Email confirmation is off, so a signup without a session means
+           the address already has an account: send them to sign in. */
         if (out.needsConfirmation) {
           busy(f, false);
-          window.NexToast('Check your email to confirm the address, then sign in.');
+          window.NexToast('That email already has an account. Sign in instead.');
+          setTimeout(function () { location.href = href('/login'); }, 1200);
           return;
         }
       } else if (kind === 'reset') {
