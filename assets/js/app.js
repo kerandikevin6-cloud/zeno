@@ -1428,13 +1428,13 @@
     busy(f, true, kind === 'signup' ? 'Creating' : 'Signing in');
     try {
       if (kind === 'signup') {
-        var first = (f.querySelector('#sFirst') || {}).value || '';
-        var last = (f.querySelector('#sLast') || {}).value || '';
-        var whole = (first + ' ' + last).trim();
         var out = await window.NexNet.signup({
           email: email,
           password: (passwordIn(f, '#newPassword') || {}).value || '',
-          name: whole || email.split('@')[0],
+          /* Sign-up asks only for email, mobile and password. The API
+             still wants a name, so it starts as the email's local part
+             and can be changed later in Profile. */
+          name: email.split('@')[0],
           phone: (f.querySelector('#sPhone') || {}).value || undefined,
           /* Chosen on the form, not guessed from an IP address. It sets
              the dialling code the number is read against and the
@@ -1566,6 +1566,15 @@
       if (!v) fail(email, 'Enter your email address');
       else if (!EMAIL_RE.test(v)) fail(email, 'That does not look like an email address');
       else markField(email, null);
+    }
+
+    /* The mobile number on sign-up: required, digits only. */
+    var phone = f.querySelector('#sPhone');
+    if (phone) {
+      var pd = phone.value.replace(/\D/g, '');
+      if (!pd) fail(phone, 'Enter your mobile number');
+      else if (pd.length < 7) fail(phone, 'That number looks too short');
+      else markField(phone, null);
     }
 
     /* A new password is held to the full rules; an existing one only has

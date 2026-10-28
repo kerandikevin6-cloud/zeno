@@ -50,16 +50,6 @@ document.documentElement.setAttribute('data-oauth','');}catch(e){}</script>
 
       <div class="auth-card">
         <form data-splash="Setting up your account" data-auth="signup" style="display:flex;flex-direction:column;gap:16px">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-            <div class="field">
-              <label for="sFirst">First name</label>
-              <input class="input" id="sFirst" autocomplete="given-name" placeholder="Amara">
-            </div>
-            <div class="field">
-              <label for="sLast">Last name</label>
-              <input class="input" id="sLast" autocomplete="family-name" placeholder="Kimani">
-            </div>
-          </div>
           <div class="field">
             <label for="sEmail">Email address</label>
             <input class="input" id="sEmail" type="email" autocomplete="email" placeholder="you@mail.com">
@@ -68,7 +58,7 @@ document.documentElement.setAttribute('data-oauth','');}catch(e){}</script>
                the deposit sheet uses, so the two can never disagree about
                which countries we take money from. -->
           <div class="field">
-            <label for="sPhone">Phone number</label>
+            <label for="sPhone">Mobile number</label>
             <div class="phone" id="sPhoneRow"></div>
             <!-- Said here rather than discovered at the deposit sheet:
                  this is the number the money will come off, and somebody
@@ -86,13 +76,6 @@ document.documentElement.setAttribute('data-oauth','');}catch(e){}</script>
               </button>
             </div>
             <div class="meter"><i></i><i></i><i></i><i></i></div>
-          </div>
-          <!-- Typed twice, because the first one is hidden while it is
-               typed and a typo in it locks somebody out of an account
-               they have just funded. -->
-          <div class="field">
-            <label for="confirmNew">Confirm password</label>
-            <input class="input" id="confirmNew" type="password" autocomplete="new-password" placeholder="Repeat your password">
           </div>
           <label class="checkline">
             <input type="checkbox" id="terms" data-consent required>
