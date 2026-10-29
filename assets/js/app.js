@@ -1126,8 +1126,8 @@
 
   /* ---------- loader ---------- */
   function loader(cls) {
-    return '<span class="nloader ' + (cls || '') + '" role="status" aria-label="Loading">' +
-      '<i></i><i></i><i></i></span>';
+    return '<span class="scaleloader ' + (cls || '') + '" role="status" aria-label="Loading">' +
+      '<i></i><i></i><i></i><i></i><i></i></span>';
   }
   window.NexLoader = loader;
 
